@@ -1,6 +1,6 @@
 import type { ApiResponse } from '@/types';
 
-const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+const API_BASE = (import.meta.env.VITE_API_BASE as string) || '/api';
 
 interface RequestOptions extends RequestInit {
   token?: string;
@@ -12,14 +12,14 @@ async function request<T>(
 ): Promise<ApiResponse<T>> {
   const { token, ...fetchOptions } = options;
 
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-    ...fetchOptions.headers,
-  };
+ const headers: Record<string, string> = {
+  'Content-Type': 'application/json',
+  ...(fetchOptions.headers as Record<string, string>),
+};
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
+if (token) {
+  headers.Authorization = `Bearer ${token}`;
+}
 
   try {
     const response = await fetch(`${API_BASE}${endpoint}`, {

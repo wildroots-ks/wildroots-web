@@ -48,7 +48,7 @@ export default function ClassDetail() {
     }
   }, [slug, fetchClass]);
 
-  const onSubmit = async (data: RegistrationFormData) => {
+  const onSubmit = async (_data: RegistrationFormData) => {
     try {
       // await api.public.registerForClass({ ...data, classId: classData?.id });
       alert('Registration successful! We will contact you to confirm your spot.');

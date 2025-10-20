@@ -17,7 +17,7 @@ interface PublicState {
   fetchClass: (slug: string) => Promise<Class | null>;
 }
 
-export const usePublicStore = create<PublicState>((set, get) => ({
+export const usePublicStore = create<PublicState>((set) => ({
   settings: null,
   hours: [],
   banners: [],
