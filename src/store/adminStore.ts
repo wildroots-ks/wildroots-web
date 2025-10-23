@@ -1,7 +1,8 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { AdminUser, AuthResponse } from '@/types';
-import { api } from '@/lib/api';
+// src/store/adminStore.ts
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { AdminUser, AuthResponse } from "@/types";
+import { api } from "@/lib/api";
 
 interface AdminState {
   user: AdminUser | null;
@@ -26,65 +27,89 @@ export const useAdminStore = create<AdminState>()(
 
       login: async (email: string, password: string) => {
         set({ isLoading: true, error: null });
-        const response = await api.auth.login(email, password);
-        
-        if (response.success && response.data) {
-          const authData = response.data as AuthResponse;
+        try {
+          const response = await api.auth.login(email, password);
+
+          if (response.success && response.data) {
+            const authData = response.data as AuthResponse;
+            set({
+              user: authData.user,
+              token: authData.token,
+              isAuthenticated: true,
+              isLoading: false,
+              error: null,
+            });
+            return true;
+          }
+
           set({
-            user: authData.user,
-            token: authData.token,
-            isAuthenticated: true,
+            error: response.error || "Login failed",
             isLoading: false,
           });
-          return true;
-        } else {
+          return false;
+        } catch (err: any) {
           set({
-            error: response.error || 'Login failed',
             isLoading: false,
+            isAuthenticated: false,
+            error: err?.message || "Login request failed",
           });
           return false;
         }
       },
 
       logout: () => {
+        // persist will overwrite storage on next set
         set({
           user: null,
           token: null,
           isAuthenticated: false,
           error: null,
+          isLoading: false,
         });
       },
 
       verifyAuth: async () => {
         const { token } = get();
         if (!token) {
-          set({ isAuthenticated: false });
+          set({ isAuthenticated: false, user: null });
           return false;
         }
 
-        set({ isLoading: true });
-        const response = await api.auth.me(token);
+        set({ isLoading: true, error: null });
+        try {
+          const response = await api.auth.me(token);
+          if (response.success && response.data) {
+            set({
+              user: response.data as AdminUser,
+              isAuthenticated: true,
+              isLoading: false,
+              error: null,
+            });
+            return true;
+          }
 
-        if (response.success && response.data) {
-          set({
-            user: response.data as AdminUser,
-            isAuthenticated: true,
-            isLoading: false,
-          });
-          return true;
-        } else {
           set({
             user: null,
             token: null,
             isAuthenticated: false,
             isLoading: false,
+            error: response.error || "Session verification failed",
+          });
+          return false;
+        } catch (err: any) {
+          set({
+            user: null,
+            token: null,
+            isAuthenticated: false,
+            isLoading: false,
+            error: err?.message || "Session verification failed",
           });
           return false;
         }
       },
     }),
     {
-      name: 'admin-storage',
+      name: "admin-storage",
       partialize: (state) => ({
         token: state.token,
       }),
