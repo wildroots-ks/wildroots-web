@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { AlertCircle, CheckCircle, Info, Sparkles } from 'lucide-react';
 import type { Banner, Class, Hours } from '@/types';
 
+export { default as BannerStrip } from './BannerStrip';
 // Hero Component
 interface HeroProps {
   title: string;
