@@ -149,7 +149,7 @@ export default function Home() {
               </div>
               <div>
                 <h4 className="font-semibold text-sage-800 mb-1">Phone</h4>
-                
+                <a
                   href={`tel:${settings?.phone || '(785) 890-2027'}`}
                   className="text-sage-600 hover:text-sage-800 transition-colors"
                 >
