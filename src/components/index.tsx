@@ -94,60 +94,6 @@ interface BannerStripProps {
   banners: Banner[];
 }
 
-export function BannerStrip({ banners }: BannerStripProps) {
-  if (!banners || banners.length === 0) return null;
-
-  const activeBanners = banners
-    .filter((b) => b.isActive)
-    .sort((a, b) => a.order - b.order);
-
-  if (activeBanners.length === 0) return null;
-
-  const getBannerStyles = (type: Banner['type']) => {
-    switch (type) {
-      case 'warning':
-        return 'bg-amber-100 border-amber-300 text-amber-900';
-      case 'success':
-        return 'bg-emerald-100 border-emerald-300 text-emerald-900';
-      case 'seasonal':
-        return 'bg-terracotta-100 border-terracotta-300 text-terracotta-900';
-      default:
-        return 'bg-sage-100 border-sage-300 text-sage-900';
-    }
-  };
-
-  const getBannerIcon = (type: Banner['type']) => {
-    switch (type) {
-      case 'warning':
-        return <AlertCircle className="w-5 h-5" />;
-      case 'success':
-        return <CheckCircle className="w-5 h-5" />;
-      case 'seasonal':
-        return <Sparkles className="w-5 h-5" />;
-      default:
-        return <Info className="w-5 h-5" />;
-    }
-  };
-
-  return (
-    <div className="space-y-2">
-      {activeBanners.map((banner) => (
-        <div
-          key={banner.id}
-          className={`border-l-4 p-4 ${getBannerStyles(banner.type)}`}
-        >
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 mt-0.5">{getBannerIcon(banner.type)}</div>
-            <div className="flex-1">
-              <h3 className="font-semibold mb-1">{banner.title}</h3>
-              <p className="text-sm">{banner.message}</p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 // ClassCard Component
 interface ClassCardProps {
