@@ -53,7 +53,7 @@ export default function ClassDetail() {
     try {
       await api.public.registerForClass({ 
         ...data, 
-        classId: classData?.id || classData?._id 
+       classId: classData?.id
       });
       alert('Registration successful! We will contact you to confirm your spot.');
       reset();
