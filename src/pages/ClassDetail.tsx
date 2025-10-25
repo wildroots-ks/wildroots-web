@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Calendar, Clock, Users, DollarSign } from 'lucide-react';
 import { Section, Card } from '@/components';
 import { usePublicStore } from '@/store/publicStore';
+import { api } from '@/lib/api';
 import type { Class } from '@/types';
 
 const registrationSchema = z.object({
@@ -48,12 +49,16 @@ export default function ClassDetail() {
     }
   }, [slug, fetchClass]);
 
-  const onSubmit = async (_data: RegistrationFormData) => {
+  const onSubmit = async (data: RegistrationFormData) => {
     try {
-      // await api.public.registerForClass({ ...data, classId: classData?.id });
+      await api.public.registerForClass({ 
+        ...data, 
+        classId: classData?.id || classData?._id 
+      });
       alert('Registration successful! We will contact you to confirm your spot.');
       reset();
     } catch (error) {
+      console.error('Registration error:', error);
       alert('There was an error with your registration. Please try again.');
     }
   };
