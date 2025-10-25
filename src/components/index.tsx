@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import type { Banner, Class, Hours } from '@/types';
+import type { Class, Hours } from '@/types';
 
 export { default as BannerStrip } from './BannerStrip';
 // Hero Component
