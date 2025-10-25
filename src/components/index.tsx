@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { AlertCircle, CheckCircle, Info, Sparkles } from 'lucide-react';
+
 import type { Banner, Class, Hours } from '@/types';
 
 export { default as BannerStrip } from './BannerStrip';
@@ -90,10 +90,6 @@ export function Card({ children, className = '' }: CardProps) {
   );
 }
 
-// BannerStrip Component
-interface BannerStripProps {
-  banners: Banner[];
-}
 
 
 // ClassCard Component
