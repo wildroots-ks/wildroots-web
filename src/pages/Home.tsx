@@ -9,11 +9,13 @@ export default function Home() {
   const settings = usePublicStore((state) => state.settings);
   const banners = usePublicStore((state) => state.banners);
   const classes = usePublicStore((state) => state.classes);
+  const fetchBanners = usePublicStore((state) => state.fetchBanners);
   const fetchClasses = usePublicStore((state) => state.fetchClasses);
 
   useEffect(() => {
+    fetchBanners();
     fetchClasses();
-  }, [fetchClasses]);
+  }, [fetchBanners, fetchClasses]);
 
   const featuredClasses = classes.filter((c) => c.isFeatured && c.isActive).slice(0, 3);
 
@@ -147,7 +149,7 @@ export default function Home() {
               </div>
               <div>
                 <h4 className="font-semibold text-sage-800 mb-1">Phone</h4>
-                <a
+                
                   href={`tel:${settings?.phone || '(785) 890-2027'}`}
                   className="text-sage-600 hover:text-sage-800 transition-colors"
                 >
