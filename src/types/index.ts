@@ -52,7 +52,21 @@ export interface Class {
   materials?: string[];
   prerequisites?: string;
 }
-
+export interface Registration {
+  id: string;
+  _id?: string;
+  classId: string;
+  className: string;
+  classDate: string;
+  name: string;
+  email: string;
+  phone: string;
+  seats: number;
+  notes: string;
+  status: 'pending' | 'confirmed' | 'cancelled';
+  createdAt: string;
+  updatedAt: string;
+}
 export interface ClassRegistration {
   classId: string;
   name: string;

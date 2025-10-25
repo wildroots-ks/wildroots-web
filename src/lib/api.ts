@@ -56,6 +56,14 @@ export const api = {
       http.get("/admin/settings", { headers: authz(token) }).then(r => r.data),
     updateSettings: (payload: any, token: string) =>
       http.put("/admin/settings", payload, { headers: authz(token) }).then(r => r.data),
+
+    // REGISTRATIONS
+    getRegistrations: (token: string) =>
+      http.get("/admin/registrations", { headers: authz(token) }).then(r => r.data),
+    updateRegistrationStatus: (id: string, status: string, token: string) =>
+      http.put(`/admin/registrations/${id}/status`, { status }, { headers: authz(token) }).then(r => r.data),
+    deleteRegistration: (id: string, token: string) =>
+      http.delete(`/admin/registrations/${id}`, { headers: authz(token) }).then(r => r.data),
   },
 
   // ---------- PUBLIC (added getClass method) ----------
