@@ -30,11 +30,25 @@ export const useAdminStore = create<AdminState>()(
         try {
           const response = await api.auth.login(email, password);
 
-          if (response.success && response.data) {
+          // Handle different response formats
+          let token = null;
+          let user = null;
+
+          if (response.token) {
+            // Direct format: { token: "...", user: {...} }
+            token = response.token;
+            user = response.user;
+          } else if (response.success && response.data) {
+            // Nested format: { success: true, data: { token: "...", user: {...} } }
             const authData = response.data as AuthResponse;
+            token = authData.token;
+            user = authData.user;
+          }
+
+          if (token) {
             set({
-              user: authData.user,
-              token: authData.token,
+              user: user || null,
+              token: token,
               isAuthenticated: true,
               isLoading: false,
               error: null,
@@ -51,7 +65,7 @@ export const useAdminStore = create<AdminState>()(
           set({
             isLoading: false,
             isAuthenticated: false,
-            error: err?.message || "Login request failed",
+            error: err?.response?.data?.error || err?.message || "Login request failed",
           });
           return false;
         }
@@ -78,9 +92,17 @@ export const useAdminStore = create<AdminState>()(
         set({ isLoading: true, error: null });
         try {
           const response = await api.auth.me(token);
-          if (response.success && response.data) {
+          
+          let user = null;
+          if (response.user) {
+            user = response.user;
+          } else if (response.success && response.data) {
+            user = response.data;
+          }
+
+          if (user) {
             set({
-              user: response.data as AdminUser,
+              user: user as AdminUser,
               isAuthenticated: true,
               isLoading: false,
               error: null,
