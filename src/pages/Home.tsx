@@ -32,7 +32,7 @@ export default function Home() {
       <Hero
         title="Welcome to Wild Roots"
         subtitle="Where your garden dreams take root"
-        imageUrl="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1600&h=900&fit=crop"
+        imageUrl="https://i.imgur.com/ANrdcYk.pngw=1600&h=900&fit=crop"
         ctaText="Explore Our Classes"
         ctaLink="/classes"
       />
@@ -124,7 +124,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <img
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop"
+              src="https://i.imgur.com/PKNCAYf.png"
               alt="Garden center interior"
               className="rounded-lg shadow-lg w-full"
             />

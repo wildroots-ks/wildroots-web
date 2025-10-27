@@ -122,15 +122,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <footer className="bg-sage-800 text-white mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Brand */}
-            <div>
-              <h3 className="text-xl font-serif font-bold mb-2">
-                {settings?.storeName || 'Wild Roots Garden & Gifts'}
-              </h3>
-              <p className="text-sage-200 text-sm">
-                {settings?.tagline || 'Garden center and retail gifts'}
-              </p>
-            </div>
+{/* Brand */}
+<div className="relative">
+  <img 
+    src="/logo_WR.png" 
+    alt="Wild Roots Logo" 
+    className="w-48 h-auto absolute -left-20 -top-1"
+  />
+  </div>
 
             {/* Address */}
             <div>

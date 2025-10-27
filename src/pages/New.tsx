@@ -22,7 +22,7 @@ export default function New() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             <img
-              src="https://images.unsplash.com/photo-1525498128493-380d1990a112?w=800&h=600&fit=crop"
+              src="https://i.imgur.com/lwMk7ZX.jpeg"
               alt="New plants"
               className="rounded-lg shadow-lg mb-6"
             />
@@ -38,7 +38,7 @@ export default function New() {
 
           <div>
             <img
-              src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&h=600&fit=crop"
+              src="https://i.imgur.com/IFXYuCF.jpeg"
               alt="New gifts"
               className="rounded-lg shadow-lg mb-6"
             />

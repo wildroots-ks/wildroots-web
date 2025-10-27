@@ -18,7 +18,7 @@ export default function Contact() {
       <Hero
         title="Get In Touch"
         subtitle="We'd love to hear from you"
-        imageUrl="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1600&h=900&fit=crop"
+        imageUrl="https://i.imgur.com/vpZDyeI.pngw=1600&h=900&fit=crop"
       />
 
       <Section>

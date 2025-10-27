@@ -27,7 +27,7 @@ export default function Classes() {
       <Hero
         title="Classes & Workshops"
         subtitle="Learn, grow, and connect with fellow plant lovers"
-        imageUrl="https://images.unsplash.com/photo-1416339442236-8ceb164046f8?w=1600&h=900&fit=crop"
+        imageUrl="https://i.imgur.com/YtITNBR.jpegw=1600&h=900&fit=crop"
       />
 
       <Section>
@@ -61,7 +61,7 @@ export default function Classes() {
             {activeClasses.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {activeClasses.map((classItem) => (
-                  <ClassCard key={classItem.id} classItem={classItem} />
+                  <ClassCard key={classItem._id || classItem.slug} classItem={classItem} />
                 ))}
               </div>
             ) : (

@@ -64,7 +64,7 @@ export default function About() {
       <Section className="bg-earth-50">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <img
-            src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&h=600&fit=crop"
+            src="https://i.imgur.com/sa2iXpz.jpeg"
             alt="Team at work"
             className="rounded-lg shadow-lg"
           />

@@ -26,7 +26,7 @@ export default function Hours() {
       <Hero
         title="Hours & Location"
         subtitle="Come visit us"
-        imageUrl="https://images.unsplash.com/photo-1487700160041-babef9c3cb55?w=1600&h=900&fit=crop"
+        imageUrl="https://i.imgur.com/a4JAeA2.pngw=1600&h=900&fit=crop"
       />
 
       <Section>

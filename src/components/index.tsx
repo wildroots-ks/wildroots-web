@@ -167,7 +167,7 @@ export function HoursTable({ hours }: HoursTableProps) {
         <div className="divide-y divide-earth-200">
           {sortedRegularHours.map((hour) => (
             <div
-              key={hour.id}
+              key={hour._id || hour.dayOfWeek}
               className="px-6 py-4 flex justify-between items-center"
             >
               <span className="font-medium text-sage-800">{hour.dayOfWeek}</span>
@@ -188,7 +188,7 @@ export function HoursTable({ hours }: HoursTableProps) {
           </div>
           <div className="divide-y divide-earth-200">
             {specialHours.map((hour) => (
-              <div key={hour.id} className="px-6 py-4">
+              <div key={hour._id || hour.dayOfWeek} className="px-6 py-4">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-medium text-sage-800">
                     {hour.specialDate &&
