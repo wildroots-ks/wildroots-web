@@ -13,6 +13,7 @@ export interface Settings {
 
 export interface Hours {
   id: string;
+  _id?: string;
   dayOfWeek: string;
   openTime: string;
   closeTime: string;
@@ -24,6 +25,7 @@ export interface Hours {
 
 export interface Banner {
   id: string;
+  _id?: string;
   title: string;
   message: string;
   type: 'info' | 'warning' | 'success' | 'seasonal';
@@ -35,6 +37,7 @@ export interface Banner {
 
 export interface Class {
   id: string;
+  _id?: string;
   slug: string;
   title: string;
   description: string;
