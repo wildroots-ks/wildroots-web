@@ -127,7 +127,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   <img 
     src="/logo_WR.png" 
     alt="Wild Roots Logo" 
-    className="w-48 h-auto absolute -left-20 -top-1"
+    className="w-32 h-auto mx-auto mb-4 md:w-48 md:absolute md:-left-20 md:-top-1 md:mx-0 md:mb-0"
   />
   </div>
 
