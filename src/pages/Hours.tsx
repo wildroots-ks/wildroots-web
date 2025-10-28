@@ -66,7 +66,7 @@ export default function Hours() {
                     Goodland, KS 67735
                   </address>
                   <a
-                    href="https://www.google.com/maps/place/1201+E+U.S.+24+Hwy,+Goodland,+KS+67735"
+                    href="https://maps.app.goo.gl/1q9wydytpPPorECd6"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block mt-3 text-sage-700 hover:text-sage-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 rounded"
@@ -103,7 +103,7 @@ export default function Hours() {
 
             <div className="mt-8 aspect-video rounded-lg overflow-hidden shadow-md">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.8!2d-101.7!3d39.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDIxJzAwLjAiTiAxMDHCsDQyJzAwLjAiVw!5e0!3m2!1sen!2sus!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3085.876169975496!2d-101.69715099999999!3d39.336391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x870b358e4bebe881%3A0x12bccb71ca89ca23!2s1201%20US-24%2C%20Goodland%2C%20KS%2067735%2C%20USA!5e0!3m2!1sen!2skh!4v1761644717304!5m2!1sen!2skh"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
