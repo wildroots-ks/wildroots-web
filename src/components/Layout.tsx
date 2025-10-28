@@ -32,7 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <span>{settings?.phone || '(785) 890-2027'}</span>
             </a>
             <a
-              href="https://www.google.com/maps/place/1201+E+U.S.+24+Hwy,+Goodland,+KS+67735"
+              href="https://maps.app.goo.gl/1q9wydytpPPorECd6"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-sage-700 hover:text-sage-900 transition-colors focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2 rounded"
