@@ -54,37 +54,37 @@ export default function HoursTab() {
     }
   };
 
- const onSubmit = async (data: HoursFormData) => {
-  if (!token) {
-    alert('No auth token found!');
-    return;
-  }
-
-  try {
-    let response;
-    if (editingId) {
-      console.log('Updating hours with ID:', editingId);
-      console.log('Sending data:', data);
-      response = await api.admin.updateHours(editingId, data, token);
-      console.log('Update response:', response);
-    } else {
-      console.log('Creating hours with data:', data);
-      response = await api.admin.createHours(data, token);
-      console.log('Create response:', response);
+  const onSubmit = async (data: HoursFormData) => {
+    if (!token) {
+      alert('No auth token found!');
+      return;
     }
 
-    if (response.success) {
-      alert(editingId ? 'Hours updated!' : 'Hours created!');
-      fetchHours();
-      handleCancel();
-    } else {
-      alert('Error: ' + (response.error || 'Unknown error'));
+    try {
+      let response;
+      if (editingId) {
+        console.log('Updating hours with ID:', editingId);
+        console.log('Sending data:', data);
+        response = await api.admin.updateHours(editingId, data, token);
+        console.log('Update response:', response);
+      } else {
+        console.log('Creating hours with data:', data);
+        response = await api.admin.createHours(data, token);
+        console.log('Create response:', response);
+      }
+
+      if (response.success) {
+        alert(editingId ? 'Hours updated!' : 'Hours created!');
+        fetchHours();
+        handleCancel();
+      } else {
+        alert('Error: ' + (response.error || 'Unknown error'));
+      }
+    } catch (error: any) {
+      console.error('Submit error:', error);
+      alert('Error: ' + (error.response?.data?.error || error.message || 'Failed to save'));
     }
-  } catch (error: any) {
-    console.error('Submit error:', error);
-    alert('Error: ' + (error.response?.data?.error || error.message || 'Failed to save'));
-  }
-};
+  };
 
   const handleEdit = (hour: Hours) => {
     setEditingId(hour._id || hour.id);
@@ -274,7 +274,7 @@ export default function HoursTab() {
           <div className="space-y-2">
             {regularHours.map((hour) => (
               <div
-                key={hour.id}
+                key={hour._id || hour.id}
                 className="flex items-center justify-between p-3 border border-earth-200 rounded-lg"
               >
                 <div>
@@ -293,7 +293,7 @@ export default function HoursTab() {
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => handleDelete(hour.id)}
+                    onClick={() => handleDelete(hour._id || hour.id)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -312,7 +312,7 @@ export default function HoursTab() {
           <div className="space-y-2">
             {specialHours.map((hour) => (
               <div
-                key={hour.id}
+                key={hour._id || hour.id}
                 className="flex items-center justify-between p-3 border border-earth-200 rounded-lg"
               >
                 <div>
@@ -337,7 +337,7 @@ export default function HoursTab() {
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
-                  onClick={() => handleDelete(hour._id || hour.id)}
+                    onClick={() => handleDelete(hour._id || hour.id)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                   >
                     <Trash2 className="w-4 h-4" />
