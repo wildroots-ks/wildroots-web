@@ -62,32 +62,34 @@ export default function ClassesTab() {
     }
   };
 
-  const onSubmit = async (data: ClassFormData) => {
-    if (!token) return;
+ const onSubmit = async (data: ClassFormData) => {
+  if (!token) return;
 
-    // Convert materials string to array
-    const formattedData = {
-      ...data,
-      materials: data.materials
-        ? data.materials.split(',').map((m) => m.trim())
-        : [],
-    };
-
-    let response;
-    if (editingId) {
-      response = await api.admin.updateClass(editingId, formattedData, token);
-    } else {
-      response = await api.admin.createClass(formattedData, token);
-    }
-
-    if (response.success) {
-      alert(editingId ? 'Class updated!' : 'Class created!');
-      fetchClasses();
-      handleCancel();
-    } else {
-      alert('Error: ' + response.error);
-    }
+  // Convert date to Central Time explicitly
+  // When user enters "2025-12-03", store it as "2025-12-03" (no timezone conversion)
+  const formattedData = {
+    ...data,
+    date: data.date, // Keep as simple string YYYY-MM-DD
+    materials: data.materials
+      ? data.materials.split(',').map((m) => m.trim())
+      : [],
   };
+
+  let response;
+  if (editingId) {
+    response = await api.admin.updateClass(editingId, formattedData, token);
+  } else {
+    response = await api.admin.createClass(formattedData, token);
+  }
+
+  if (response.success) {
+    alert(editingId ? 'Class updated!' : 'Class created!');
+    fetchClasses();
+    handleCancel();
+  } else {
+    alert('Error: ' + response.error);
+  }
+};
 
   const handleEdit = (classItem: Class) => {
     setEditingId(classItem.id);
@@ -458,7 +460,7 @@ export default function ClassesTab() {
                   {classItem.description}
                 </p>
                 <div className="flex justify-between text-sm text-sage-700 mb-3">
-                  <span>{new Date(classItem.date).toLocaleDateString()}</span>
+                 <span>{classItem.date}</span>
                   <span>${classItem.price}</span>
                 </div>
                 <div className="flex gap-2">
