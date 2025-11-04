@@ -54,14 +54,23 @@ export default function HoursTab() {
     }
   };
 
-  const onSubmit = async (data: HoursFormData) => {
-    if (!token) return;
+ const onSubmit = async (data: HoursFormData) => {
+  if (!token) {
+    alert('No auth token found!');
+    return;
+  }
 
+  try {
     let response;
     if (editingId) {
+      console.log('Updating hours with ID:', editingId);
+      console.log('Sending data:', data);
       response = await api.admin.updateHours(editingId, data, token);
+      console.log('Update response:', response);
     } else {
+      console.log('Creating hours with data:', data);
       response = await api.admin.createHours(data, token);
+      console.log('Create response:', response);
     }
 
     if (response.success) {
@@ -69,9 +78,13 @@ export default function HoursTab() {
       fetchHours();
       handleCancel();
     } else {
-      alert('Error: ' + response.error);
+      alert('Error: ' + (response.error || 'Unknown error'));
     }
-  };
+  } catch (error: any) {
+    console.error('Submit error:', error);
+    alert('Error: ' + (error.response?.data?.error || error.message || 'Failed to save'));
+  }
+};
 
   const handleEdit = (hour: Hours) => {
     setEditingId(hour._id || hour.id);
