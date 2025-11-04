@@ -88,7 +88,15 @@ export default function HoursTab() {
 
   const handleEdit = (hour: Hours) => {
     setEditingId(hour._id || hour.id);
-    reset(hour);
+    reset({
+      dayOfWeek: hour.dayOfWeek || '',
+      openTime: hour.openTime || '',
+      closeTime: hour.closeTime || '',
+      isClosed: hour.isClosed || false,
+      isSpecial: hour.isSpecial || false,
+      specialDate: hour.specialDate || '',
+      specialNote: hour.specialNote || '',
+    });
     setShowForm(true);
   };
 
