@@ -74,7 +74,7 @@ export default function HoursTab() {
   };
 
   const handleEdit = (hour: Hours) => {
-    setEditingId(hour.id);
+    setEditingId(hour._id || hour.id);
     reset(hour);
     setShowForm(true);
   };
@@ -324,7 +324,7 @@ export default function HoursTab() {
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => handleDelete(hour.id)}
+                  onClick={() => handleDelete(hour._id || hour.id)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                   >
                     <Trash2 className="w-4 h-4" />
