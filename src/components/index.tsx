@@ -234,22 +234,34 @@ export function ContactForm() {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    // Honeypot check
-    if (data.honeypot) {
-      console.log('Spam detected');
-      return;
+const onSubmit = async (data: ContactFormData) => {
+  // Honeypot check
+  if (data.honeypot) {
+    console.log('Spam detected');
+    return;
+  }
+
+  // Submit to API
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/public/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send message');
     }
 
-    // Submit to API
-    try {
-      // await api.public.submitContact(data);
-      alert('Thank you for your message! We will get back to you soon.');
-      reset();
-    } catch (error) {
-      alert('There was an error sending your message. Please try again.');
-    }
-  };
+    alert('Thank you for your message! We will get back to you soon.');
+    reset();
+  } catch (error) {
+    console.error('Contact form error:', error);
+    alert('There was an error sending your message. Please try again.');
+  }
+};
 
   return (
     <Card className="p-6 md:p-8">
