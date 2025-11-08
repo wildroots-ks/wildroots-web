@@ -36,7 +36,7 @@ export default function Sales() {
               We're starting a list of requests for trees and shrubs
               Call us at 785-890-2027
             </p>
-            <p className="text-sm text-sage-500">Valid March - April</p>
+            <p className="text-sm text-sage-500"></p>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-sage-500">
