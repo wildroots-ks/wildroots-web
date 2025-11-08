@@ -15,7 +15,7 @@ export default function Sales() {
       <Hero
         title="Sales & Specials"
         subtitle="Great deals on plants, supplies, and more"
-        imageUrl="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?w=1600&h=900&fit=crop"
+        imageUrl="https://i.imgur.com/1pnqMuE.jpegw=1600&h=900&fit=crop"
       />
 
       <Section>
