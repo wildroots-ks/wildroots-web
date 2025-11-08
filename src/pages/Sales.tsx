@@ -30,11 +30,11 @@ export default function Sales() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-terracotta-500">
             <h3 className="text-xl font-serif font-bold text-sage-800 mb-3">
-              Spring Sale
+              Spring Trees & Shrubs
             </h3>
             <p className="text-sage-600 mb-4">
-              Get ready for planting season with 20% off all vegetable starts and seed
-              packets.
+              We're starting a list of requests for trees and shrubs
+              Call us at 785-890-2027
             </p>
             <p className="text-sm text-sage-500">Valid March - April</p>
           </div>
