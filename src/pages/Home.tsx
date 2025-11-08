@@ -124,7 +124,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <img
-              src="https://i.imgur.com/sa2iXpz_d.jpeg?maxwidth=520&shape=thumb&fidelity=high"
+              src="https://i.imgur.com/PKNCAYf.png"
               alt="Garden center interior"
               className="rounded-lg shadow-lg w-full"
             />
