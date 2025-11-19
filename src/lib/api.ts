@@ -90,6 +90,7 @@ export const api = {
     getClass: (slug: string) => http.get(`/public/classes/${slug}`).then(r => r.data),
     getHours: () => http.get("/public/hours").then(r => r.data),
     getSettings: () => http.get("/public/settings").then(r => r.data),
+    getPageContent: (page: string) => http.get(`/public/page-content?page=${page}`).then(r => r.data),
     registerForClass: (payload: any) => http.post("/registrations", payload).then(r => r.data),
   },
 };
