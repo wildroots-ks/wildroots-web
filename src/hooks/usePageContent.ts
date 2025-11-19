@@ -18,7 +18,8 @@ export function usePageContent(pageName: string) {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const data = await api.public.getPageContent(pageName);
+        const response = await api.public.getPageContent(pageName);
+        const data = response.success ? response.data : response;
         setContent(data);
       } catch (error) {
         console.error('Failed to fetch page content:', error);
