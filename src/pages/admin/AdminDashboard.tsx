@@ -10,14 +10,16 @@ import {
   BookOpen,
   Home,
   Users,
+  FileText,
 } from 'lucide-react';
 import SettingsTab from '@/pages/admin/tabs/SettingsTab';
 import HoursTab from '@/pages/admin/tabs/HoursTab';
 import BannersTab from '@/pages/admin/tabs/BannersTab';
 import ClassesTab from '@/pages/admin/tabs/ClassesTab';
 import RegistrationsTab from '@/pages/admin/tabs/RegistrationsTab';
+import PageContentTab from '@/pages/admin/tabs/PageContentTab';
 
-type TabType = 'settings' | 'hours' | 'banners' | 'classes' | 'registrations';
+type TabType = 'settings' | 'hours' | 'banners' | 'classes' | 'registrations' | 'content';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ export default function AdminDashboard() {
     { id: 'banners' as TabType, label: 'Banners', icon: Megaphone },
     { id: 'classes' as TabType, label: 'Classes', icon: BookOpen },
     { id: 'registrations' as TabType, label: 'Registrations', icon: Users },
+    { id: 'content' as TabType, label: 'Page Content', icon: FileText },
   ];
 
   return (
@@ -58,8 +61,8 @@ export default function AdminDashboard() {
                 </span>
               </div>
               <div className="flex items-center gap-4">
-                
-                <a  href="/"
+                <a
+                  href="/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 text-sage-700 hover:text-sage-900 transition-colors focus:outline-none focus:ring-2 focus:ring-sage-500 rounded"
@@ -112,6 +115,7 @@ export default function AdminDashboard() {
           {activeTab === 'banners' && <BannersTab />}
           {activeTab === 'classes' && <ClassesTab />}
           {activeTab === 'registrations' && <RegistrationsTab />}
+          {activeTab === 'content' && <PageContentTab />}
         </main>
       </div>
     </>

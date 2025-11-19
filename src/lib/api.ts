@@ -64,6 +64,23 @@ export const api = {
       http.put(`/admin/registrations/${id}/status`, { status }, { headers: authz(token) }).then(r => r.data),
     deleteRegistration: (id: string, token: string) =>
       http.delete(`/admin/registrations/${id}`, { headers: authz(token) }).then(r => r.data),
+
+    // PAGE CONTENT
+    getPageContent: (page: string, token: string) =>
+      http.get(`/admin/page-content?page=${page}`, { headers: authz(token) }).then(r => r.data),
+    createPageContent: (payload: any, token: string) =>
+      http.post("/admin/page-content", payload, { headers: authz(token) }).then(r => r.data),
+    updatePageContent: (id: string, payload: any, token: string) =>
+      http.put(`/admin/page-content/${id}`, payload, { headers: authz(token) }).then(r => r.data),
+    deletePageContent: (id: string, token: string) =>
+      http.delete(`/admin/page-content/${id}`, { headers: authz(token) }).then(r => r.data),
+    uploadImage: (formData: FormData, token: string) =>
+      http.post("/admin/upload-image", formData, { 
+        headers: { 
+          ...authz(token),
+          'Content-Type': 'multipart/form-data'
+        } 
+      }).then(r => r.data),
   },
 
   // ---------- PUBLIC (added getClass method) ----------
