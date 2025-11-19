@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Hero, Section, BannerStrip, ClassCard } from '@/components';
 import { usePublicStore } from '@/store/publicStore';
+import { usePageContent } from '@/hooks/usePageContent';
 import { Sprout, Gift, Calendar, MapPin } from 'lucide-react';
 
 export default function Home() {
@@ -11,6 +12,8 @@ export default function Home() {
   const classes = usePublicStore((state) => state.classes);
   const fetchBanners = usePublicStore((state) => state.fetchBanners);
   const fetchClasses = usePublicStore((state) => state.fetchClasses);
+  
+  const { getSectionContent, getSectionImage, loading } = usePageContent('home');
 
   useEffect(() => {
     fetchBanners();
@@ -18,6 +21,14 @@ export default function Home() {
   }, [fetchBanners, fetchClasses]);
 
   const featuredClasses = classes.filter((c) => c.isFeatured && c.isActive).slice(0, 3);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-sage-600">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -30,10 +41,10 @@ export default function Home() {
       </Helmet>
 
       <Hero
-        title="Welcome to Wild Roots"
-        subtitle="Where your garden dreams take root"
-        imageUrl="https://i.imgur.com/ANrdcYk.pngw=1600&h=900&fit=crop"
-        ctaText="Explore Our Classes"
+        title={getSectionContent('hero', 'Welcome to Wild Roots')}
+        subtitle={getSectionContent('hero-subtitle', 'Where your garden dreams take root')}
+        imageUrl={getSectionImage('hero', 'https://i.imgur.com/ANrdcYk.png?w=1600&h=900&fit=crop')}
+        ctaText={getSectionContent('hero-cta-text', 'Explore Our Classes')}
         ctaLink="/classes"
       />
 
@@ -44,8 +55,8 @@ export default function Home() {
       )}
 
       <Section
-        title="Why Choose Wild Roots?"
-        subtitle="Your premier destination for plants, gardening supplies, and unique gifts"
+        title={getSectionContent('why-choose-title', 'Why Choose Wild Roots?')}
+        subtitle={getSectionContent('why-choose-subtitle', 'Your premier destination for plants, gardening supplies, and unique gifts')}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="text-center">
@@ -53,10 +64,10 @@ export default function Home() {
               <Sprout className="w-8 h-8 text-sage-700" />
             </div>
             <h3 className="text-xl font-serif font-bold text-sage-800 mb-2">
-              Quality Plants
+              {getSectionContent('quality-plants-title', 'Quality Plants')}
             </h3>
             <p className="text-sage-600">
-              Carefully selected plants and trees for Kansas climate
+              {getSectionContent('quality-plants-text', 'Carefully selected plants and trees for Kansas climate')}
             </p>
           </div>
 
@@ -65,10 +76,10 @@ export default function Home() {
               <Gift className="w-8 h-8 text-sage-700" />
             </div>
             <h3 className="text-xl font-serif font-bold text-sage-800 mb-2">
-              Unique Gifts
+              {getSectionContent('unique-gifts-title', 'Unique Gifts')}
             </h3>
             <p className="text-sage-600">
-              Curated selection of home and garden decor
+              {getSectionContent('unique-gifts-text', 'Curated selection of home and garden decor')}
             </p>
           </div>
 
@@ -77,10 +88,10 @@ export default function Home() {
               <Calendar className="w-8 h-8 text-sage-700" />
             </div>
             <h3 className="text-xl font-serif font-bold text-sage-800 mb-2">
-              Expert Classes
+              {getSectionContent('expert-classes-title', 'Expert Classes')}
             </h3>
             <p className="text-sage-600">
-              Learn from experienced gardeners and designers
+              {getSectionContent('expert-classes-text', 'Learn from experienced gardeners and designers')}
             </p>
           </div>
 
@@ -89,10 +100,10 @@ export default function Home() {
               <MapPin className="w-8 h-8 text-sage-700" />
             </div>
             <h3 className="text-xl font-serif font-bold text-sage-800 mb-2">
-              Local & Trusted
+              {getSectionContent('local-trusted-title', 'Local & Trusted')}
             </h3>
             <p className="text-sage-600">
-              Serving Goodland and surrounding communities
+              {getSectionContent('local-trusted-text', 'Serving Goodland and surrounding communities')}
             </p>
           </div>
         </div>
@@ -100,8 +111,8 @@ export default function Home() {
 
       {featuredClasses.length > 0 && (
         <Section
-          title="Featured Classes"
-          subtitle="Join us for hands-on learning experiences"
+          title={getSectionContent('featured-classes-title', 'Featured Classes')}
+          subtitle={getSectionContent('featured-classes-subtitle', 'Join us for hands-on learning experiences')}
           className="bg-earth-50"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -120,23 +131,21 @@ export default function Home() {
         </Section>
       )}
 
-      <Section title="Visit Us Today">
+      <Section title={getSectionContent('visit-us-title', 'Visit Us Today')}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <img
-              src="https://i.imgur.com/PKNCAYf.png"
+              src={getSectionImage('visit-us-image', 'https://i.imgur.com/PKNCAYf.png')}
               alt="Garden center interior"
               className="rounded-lg shadow-lg w-full"
             />
           </div>
           <div>
             <h3 className="text-2xl font-serif font-bold text-sage-800 mb-4">
-              Come See Us
+              {getSectionContent('come-see-us-title', 'Come See Us')}
             </h3>
             <p className="text-sage-600 mb-6">
-              Whether you're a seasoned gardener or just starting out, our friendly
-              staff is here to help you succeed. Visit us to browse our selection of
-              plants, supplies, and gifts.
+              {getSectionContent('come-see-us-text', "Whether you're a seasoned gardener or just starting out, our friendly staff is here to help you succeed. Visit us to browse our selection of plants, supplies, and gifts.")}
             </p>
             <div className="space-y-4">
               <div>
@@ -149,8 +158,8 @@ export default function Home() {
               </div>
               <div>
                 <h4 className="font-semibold text-sage-800 mb-1">Phone</h4>
-                <a
-                  href={`tel:${settings?.phone || '(785) 890-2027'}`}
+                
+                 <a href={`tel:${settings?.phone || '(785) 890-2027'}`}
                   className="text-sage-600 hover:text-sage-800 transition-colors"
                 >
                   {settings?.phone || '(785) 890-2027'}
