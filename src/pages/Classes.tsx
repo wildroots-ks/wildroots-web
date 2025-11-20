@@ -2,17 +2,27 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Hero, Section, ClassCard } from '@/components';
 import { usePublicStore } from '@/store/publicStore';
+import { usePageContent } from '@/hooks/usePageContent';
 
 export default function Classes() {
   const settings = usePublicStore((state) => state.settings);
   const classes = usePublicStore((state) => state.classes);
   const fetchClasses = usePublicStore((state) => state.fetchClasses);
+  const { getSectionContent, getSectionImage, loading } = usePageContent('classes');
 
   useEffect(() => {
     fetchClasses();
   }, [fetchClasses]);
 
   const activeClasses = classes.filter((c) => c.isActive);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-sage-600">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -25,9 +35,9 @@ export default function Classes() {
       </Helmet>
 
       <Hero
-        title="Classes & Workshops"
-        subtitle="Learn, grow, and connect with fellow plant lovers"
-        imageUrl="https://i.imgur.com/YtITNBR.jpegw=1600&h=900&fit=crop"
+        title={getSectionContent('hero', 'Classes & Workshops')}
+        subtitle={getSectionContent('hero-subtitle', 'Learn, grow, and connect with fellow plant lovers')}
+        imageUrl={getSectionImage('hero', 'https://i.imgur.com/YtITNBR.jpegw=1600&h=900&fit=crop')}
       />
 
       <Section>
@@ -35,8 +45,7 @@ export default function Classes() {
           <div>
             <div className="text-center mb-8">
               <p className="text-lg text-sage-600 max-w-3xl mx-auto">
-                Browse our upcoming classes and register online. Select a class below
-                to see details and reserve your spot.
+                {getSectionContent('picktime-intro', 'Browse our upcoming classes and register online. Select a class below to see details and reserve your spot.')}
               </p>
             </div>
             
@@ -53,8 +62,7 @@ export default function Classes() {
           <div>
             <div className="text-center mb-12">
               <p className="text-lg text-sage-600 max-w-3xl mx-auto">
-                Join us for hands-on learning experiences led by expert instructors.
-                All skill levels welcome!
+                {getSectionContent('regular-intro', 'Join us for hands-on learning experiences led by expert instructors. All skill levels welcome!')}
               </p>
             </div>
 
@@ -67,12 +75,10 @@ export default function Classes() {
             ) : (
               <div className="text-center py-12">
                 <p className="text-sage-600 mb-4">
-                  No classes are currently scheduled. Check back soon for upcoming
-                  workshops!
+                  {getSectionContent('no-classes-text-1', 'No classes are currently scheduled. Check back soon for upcoming workshops!')}
                 </p>
                 <p className="text-sage-600">
-                  Follow us on social media to be the first to know when new classes
-                  are announced.
+                  {getSectionContent('no-classes-text-2', 'Follow us on social media to be the first to know when new classes are announced.')}
                 </p>
               </div>
             )}
