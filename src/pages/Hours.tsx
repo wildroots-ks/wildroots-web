@@ -2,16 +2,26 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Hero, Section, HoursTable } from '@/components';
 import { usePublicStore } from '@/store/publicStore';
+import { usePageContent } from '@/hooks/usePageContent';
 import { MapPin, Phone } from 'lucide-react';
 
 export default function Hours() {
   const settings = usePublicStore((state) => state.settings);
   const hours = usePublicStore((state) => state.hours);
   const fetchHours = usePublicStore((state) => state.fetchHours);
+  const { getSectionContent, loading } = usePageContent('hours');
 
   useEffect(() => {
     fetchHours();
   }, [fetchHours]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-sage-600">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -24,23 +34,23 @@ export default function Hours() {
       </Helmet>
 
       <Hero
-        title="Hours & Location"
-        subtitle="Come visit us"
-        imageUrl="https://i.imgur.com/a4JAeA2.pngw=1600&h=900&fit=crop"
+        title={getSectionContent('hero', 'Hours & Location')}
+        subtitle={getSectionContent('hero-subtitle', 'Come visit us')}
+        imageUrl="https://i.imgur.com/a4JAeA2.png?w=1600&h=900&fit=crop"
       />
 
       <Section>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
             <h2 className="text-2xl font-serif font-bold text-sage-800 mb-6">
-              Store Hours
+              {getSectionContent('store-hours-title', 'Store Hours')}
             </h2>
             {hours.length > 0 ? (
               <HoursTable hours={hours} />
             ) : (
               <div className="bg-white rounded-lg shadow-md p-6">
                 <p className="text-sage-600">
-                  Please call us for our current hours of operation.
+                  {getSectionContent('no-hours-text', 'Please call us for our current hours of operation.')}
                 </p>
               </div>
             )}
@@ -48,7 +58,7 @@ export default function Hours() {
 
           <div>
             <h2 className="text-2xl font-serif font-bold text-sage-800 mb-6">
-              Location & Contact
+              {getSectionContent('location-title', 'Location & Contact')}
             </h2>
             
             <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
@@ -65,12 +75,12 @@ export default function Hours() {
                     <br />
                     Goodland, KS 67735
                   </address>
-                  <a
+                  
                     href="https://maps.app.goo.gl/1q9wydytpPPorECd6"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block mt-3 text-sage-700 hover:text-sage-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 rounded"
-                  >
+                 <a>
                     Get Directions →
                   </a>
                 </div>
@@ -84,10 +94,10 @@ export default function Hours() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-sage-800 mb-2">Phone</h3>
-                  <a
+                  
                     href={`tel:${settings?.phone || '(785) 890-2027'}`}
                     className="text-sage-700 hover:text-sage-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 rounded"
-                  >
+                  <a>
                     {settings?.phone || '(785) 890-2027'}
                   </a>
                 </div>
@@ -95,8 +105,7 @@ export default function Hours() {
 
               <div className="pt-4 border-t border-earth-200">
                 <p className="text-sm text-sage-600 mb-4">
-                  Have questions? Call us or visit during our business hours. Our
-                  friendly staff is here to help!
+                  {getSectionContent('contact-description', 'Have questions? Call us or visit during our business hours. Our friendly staff is here to help!')}
                 </p>
               </div>
             </div>

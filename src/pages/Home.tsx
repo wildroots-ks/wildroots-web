@@ -1,26 +1,19 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import { Hero, Section, BannerStrip, ClassCard } from '@/components';
+import { Hero, Section, HoursTable } from '@/components';
 import { usePublicStore } from '@/store/publicStore';
 import { usePageContent } from '@/hooks/usePageContent';
-import { Sprout, Gift, Calendar, MapPin } from 'lucide-react';
+import { MapPin, Phone } from 'lucide-react';
 
-export default function Home() {
+export default function Hours() {
   const settings = usePublicStore((state) => state.settings);
-  const banners = usePublicStore((state) => state.banners);
-  const classes = usePublicStore((state) => state.classes);
-  const fetchBanners = usePublicStore((state) => state.fetchBanners);
-  const fetchClasses = usePublicStore((state) => state.fetchClasses);
-  
-  const { getSectionContent, getSectionImage, loading } = usePageContent('home');
+  const hours = usePublicStore((state) => state.hours);
+  const fetchHours = usePublicStore((state) => state.fetchHours);
+  const { getSectionContent, getSectionImage, loading } = usePageContent('hours');
 
   useEffect(() => {
-    fetchBanners();
-    fetchClasses();
-  }, [fetchBanners, fetchClasses]);
-
-  const featuredClasses = classes.filter((c) => c.isFeatured && c.isActive).slice(0, 3);
+    fetchHours();
+  }, [fetchHours]);
 
   if (loading) {
     return (
@@ -33,146 +26,105 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>{settings?.storeName || 'Wild Roots Garden & Gifts'} - Home</title>
+        <title>Hours & Location - Wild Roots Garden & Gifts</title>
         <meta
           name="description"
-          content="Your local garden center and gift shop in Goodland, Kansas. Plants, gardening supplies, gifts, and expert advice."
+          content="Visit Wild Roots Garden & Gifts at 1201 E U.S. 24 Hwy, Goodland, KS. View our hours of operation."
         />
       </Helmet>
 
       <Hero
-        title={getSectionContent('hero', 'Welcome to Wild Roots')}
-        subtitle={getSectionContent('hero-subtitle', 'Where your garden dreams take root')}
-        imageUrl={getSectionImage('hero', 'https://i.imgur.com/ANrdcYk.png?w=1600&h=900&fit=crop')}
-        ctaText={getSectionContent('hero-cta-text', 'Explore Our Classes')}
-        ctaLink="/classes"
+        title={getSectionContent('hero', 'Hours & Location')}
+        subtitle={getSectionContent('hero-subtitle', 'Come visit us')}
+        imageUrl={getSectionImage('hero', 'https://i.imgur.com/a4JAeA2.pngw=1600&h=900&fit=crop')}
       />
 
-      {banners.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
-          <BannerStrip banners={banners} />
-        </div>
-      )}
-
-      <Section
-        title={getSectionContent('why-choose-title', 'Why Choose Wild Roots?')}
-        subtitle={getSectionContent('why-choose-subtitle', 'Your premier destination for plants, gardening supplies, and unique gifts')}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-sage-100 rounded-full mb-4">
-              <Sprout className="w-8 h-8 text-sage-700" />
-            </div>
-            <h3 className="text-xl font-serif font-bold text-sage-800 mb-2">
-              {getSectionContent('quality-plants-title', 'Quality Plants')}
-            </h3>
-            <p className="text-sage-600">
-              {getSectionContent('quality-plants-text', 'Carefully selected plants and trees for Kansas climate')}
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-sage-100 rounded-full mb-4">
-              <Gift className="w-8 h-8 text-sage-700" />
-            </div>
-            <h3 className="text-xl font-serif font-bold text-sage-800 mb-2">
-              {getSectionContent('unique-gifts-title', 'Unique Gifts')}
-            </h3>
-            <p className="text-sage-600">
-              {getSectionContent('unique-gifts-text', 'Curated selection of home and garden decor')}
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-sage-100 rounded-full mb-4">
-              <Calendar className="w-8 h-8 text-sage-700" />
-            </div>
-            <h3 className="text-xl font-serif font-bold text-sage-800 mb-2">
-              {getSectionContent('expert-classes-title', 'Expert Classes')}
-            </h3>
-            <p className="text-sage-600">
-              {getSectionContent('expert-classes-text', 'Learn from experienced gardeners and designers')}
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-sage-100 rounded-full mb-4">
-              <MapPin className="w-8 h-8 text-sage-700" />
-            </div>
-            <h3 className="text-xl font-serif font-bold text-sage-800 mb-2">
-              {getSectionContent('local-trusted-title', 'Local & Trusted')}
-            </h3>
-            <p className="text-sage-600">
-              {getSectionContent('local-trusted-text', 'Serving Goodland and surrounding communities')}
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {featuredClasses.length > 0 && (
-        <Section
-          title={getSectionContent('featured-classes-title', 'Featured Classes')}
-          subtitle={getSectionContent('featured-classes-subtitle', 'Join us for hands-on learning experiences')}
-          className="bg-earth-50"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredClasses.map((classItem) => (
-              <ClassCard key={classItem.id} classItem={classItem} />
-            ))}
-          </div>
-          <div className="text-center mt-12">
-            <Link
-              to="/classes"
-              className="inline-block px-8 py-3 bg-sage-700 hover:bg-sage-800 text-white font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
-            >
-              View All Classes
-            </Link>
-          </div>
-        </Section>
-      )}
-
-      <Section title={getSectionContent('visit-us-title', 'Visit Us Today')}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <Section>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <img
-              src={getSectionImage('visit-us-image', 'https://i.imgur.com/PKNCAYf.png')}
-              alt="Garden center interior"
-              className="rounded-lg shadow-lg w-full"
-            />
-          </div>
-          <div>
-            <h3 className="text-2xl font-serif font-bold text-sage-800 mb-4">
-              {getSectionContent('come-see-us-title', 'Come See Us')}
-            </h3>
-            <p className="text-sage-600 mb-6">
-              {getSectionContent('come-see-us-text', "Whether you're a seasoned gardener or just starting out, our friendly staff is here to help you succeed. Visit us to browse our selection of plants, supplies, and gifts.")}
-            </p>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-semibold text-sage-800 mb-1">Location</h4>
+            <h2 className="text-2xl font-serif font-bold text-sage-800 mb-6">
+              {getSectionContent('store-hours-title', 'Store Hours')}
+            </h2>
+            {hours.length > 0 ? (
+              <HoursTable hours={hours} />
+            ) : (
+              <div className="bg-white rounded-lg shadow-md p-6">
                 <p className="text-sage-600">
-                  {settings?.address || '1201 E U.S. 24 Hwy'}
-                  <br />
-                  Goodland, KS 67735
+                  {getSectionContent('no-hours-text', 'Please call us for our current hours of operation.')}
                 </p>
               </div>
-              <div>
-                <h4 className="font-semibold text-sage-800 mb-1">Phone</h4>
-                
-                 <a href={`tel:${settings?.phone || '(785) 890-2027'}`}
-                  className="text-sage-600 hover:text-sage-800 transition-colors"
-                >
-                  {settings?.phone || '(785) 890-2027'}
-                </a>
+            )}
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-serif font-bold text-sage-800 mb-6">
+              {getSectionContent('location-contact-title', 'Location & Contact')}
+            </h2>
+            
+            <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center">
+                    <MapPin className="w-6 h-6 text-sage-700" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sage-800 mb-2">
+                    {getSectionContent('address-label', 'Address')}
+                  </h3>
+                  <address className="not-italic text-sage-600">
+                    {settings?.address || '1201 E U.S. 24 Hwy'}
+                    <br />
+                    Goodland, KS 67735
+                  </address>
+                  <a
+                    href="https://maps.app.goo.gl/1q9wydytpPPorECd6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-3 text-sage-700 hover:text-sage-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 rounded"
+                  >
+                    {getSectionContent('directions-link-text', 'Get Directions')}
+                  </a>
+                </div>
               </div>
-              <div className="pt-4">
-                <Link
-                  to="/hours"
-                  className="inline-block px-6 py-2 border-2 border-sage-700 text-sage-700 hover:bg-sage-700 hover:text-white font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
-                >
-                  View Hours
-                </Link>
+
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center">
+                    <Phone className="w-6 h-6 text-sage-700" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sage-800 mb-2">
+                    {getSectionContent('phone-label', 'Phone')}
+                  </h3>
+                  <a
+                    href={`tel:${settings?.phone || '(785) 890-2027'}`}
+                    className="text-sage-700 hover:text-sage-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 rounded"
+                  >
+                    {settings?.phone || '(785) 890-2027'}
+                  </a>
+                </div>
               </div>
+
+              <div className="pt-4 border-t border-earth-200">
+                <p className="text-sm text-sage-600 mb-4">
+                  {getSectionContent('help-text', 'Have questions? Call us or visit during our business hours. Our friendly staff is here to help!')}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 aspect-video rounded-lg overflow-hidden shadow-md">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3085.876169975496!2d-101.69715099999999!3d39.336391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x870b358e4bebe881%3A0x12bccb71ca89ca23!2s1201%20US-24%2C%20Goodland%2C%20KS%2067735%2C%20USA!5e0!3m2!1sen!2skh!4v1761644717304!5m2!1sen!2skh"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Wild Roots Garden & Gifts Location"
+              />
             </div>
           </div>
         </div>
