@@ -76,11 +76,11 @@ export default function Hours() {
                     Goodland, KS 67735
                   </address>
                   
-                    href="https://maps.app.goo.gl/1q9wydytpPPorECd6"
+                    <a href="https://maps.app.goo.gl/1q9wydytpPPorECd6"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block mt-3 text-sage-700 hover:text-sage-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 rounded"
-                  <a>
+                  >
                     Get Directions →
                   </a>
                 </div>
@@ -95,9 +95,9 @@ export default function Hours() {
                 <div>
                   <h3 className="font-semibold text-sage-800 mb-2">Phone</h3>
                   
-                    href={`tel:${settings?.phone || '(785) 890-2027'}`}
+                   <a href={`tel:${settings?.phone || '(785) 890-2027'}`}
                     className="text-sage-700 hover:text-sage-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 rounded"
-                  <a>
+                  >
                     {settings?.phone || '(785) 890-2027'}
                   </a>
                 </div>
