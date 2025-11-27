@@ -100,7 +100,7 @@ export default function PageContentTab() {
         formData.append('image', imageFile);
         const uploadResponse = await api.admin.uploadImage(formData, token);
         if (uploadResponse.success && uploadResponse.data) {
-          imageUrl = uploadResponse.data.url;
+          imageUrl = uploadResponse.data.imageUrl;
         }
       }
 
