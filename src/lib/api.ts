@@ -75,7 +75,7 @@ export const api = {
     deletePageContent: (id: string, token: string) =>
       http.delete(`/admin/page-content/${id}`, { headers: authz(token) }).then(r => r.data),
     uploadImage: (formData: FormData, token: string) =>
-      http.post("/admin/upload-image", formData, { 
+      http.post("/upload/image", formData, { 
         headers: { 
           ...authz(token),
           'Content-Type': 'multipart/form-data'
