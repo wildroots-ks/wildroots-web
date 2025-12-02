@@ -99,9 +99,9 @@ export default function PageContentTab() {
         const formData = new FormData();
         formData.append('image', imageFile);
         const uploadResponse = await api.admin.uploadImage(formData, token);
-        if (uploadResponse.success) {
-          // Handle both response structures: { data: { imageUrl } } or { imageUrl }
-          imageUrl = uploadResponse.data?.imageUrl || uploadResponse.imageUrl;
+        // API returns {message, imageUrl, filename} directly
+        if (uploadResponse.imageUrl) {
+          imageUrl = uploadResponse.imageUrl;
         }
         if (!imageUrl) {
           alert('Image upload failed - no URL returned');
