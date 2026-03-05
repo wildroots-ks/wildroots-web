@@ -162,11 +162,9 @@ export default function Home() {
                   {getSectionContent('phone-label', 'Phone')}
                 </h4>
                 
-                  href={`tel:${settings?.phone || '(785) 890-2027'}`}
-                  className="text-sage-600 hover:text-sage-800 transition-colors"
-                <a>
+                <p className="text-sage-600">
                   {settings?.phone || '(785) 890-2027'}
-                </a>
+                </p>
               </div>
               <div className="pt-4">
                 <Link
